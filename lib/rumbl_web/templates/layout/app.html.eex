@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Rumbl · Phoenix Framework</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script>window.userToken = "<%= assigns[:user_token] %>"</script>
     <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
   <body>
@@ -13,13 +15,20 @@
       <section class="container">
         <nav role="navigation">
           <ul>
-            <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
             <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
               <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
             <% end %>
+            <%= if @current_user do %>
+              <li><%= @current_user.username %></li>
+              <li><%= link "My Videos", to: Routes.video_path(@conn, :index) %></li>
+              <li><%= link "Log out", to: Routes.session_path(@conn, :delete, @current_user), method: "delete" %></li>
+            <% else %>
+              <li><%= link "Register", to: Routes.user_path(@conn, :new) %></li> 
+              <li><%= link "Log in", to: Routes.session_path(@conn, :new) %></li>
+            <% end %>
           </ul>
         </nav>
-        <a href="https://phoenixframework.org/" class="phx-logo">
+        <a href="/" class="phx-logo">
           <img src="<%= Routes.static_path(@conn, "/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
         </a>
       </section>

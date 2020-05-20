@@ -11,7 +11,7 @@ defmodule RumblWeb.Endpoint do
   ]
 
   socket "/socket", RumblWeb.UserSocket,
-    websocket: true,
+    websocket: [timeout: 45_000],
     longpoll: false
 
   socket "/live", Phoenix.LiveView.Socket,

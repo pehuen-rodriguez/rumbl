@@ -23,6 +23,12 @@ defmodule RumblWeb.ConnCase do
       import Plug.Conn
       import Phoenix.ConnTest
       import RumblWeb.ConnCase
+      import Rumbl.TestHelpers
+
+      alias Rumbl.Repo
+      import Ecto
+      import Ecto.Changeset
+      import Ecto.Query, only: [from: 1, from: 2]
 
       alias RumblWeb.Router.Helpers, as: Routes
 

@@ -25,8 +25,7 @@ compile:
 
 test: MIX_ENV=test
 test:
-	# @dialyzer
-	@mix test
+	@source .env && MIX_ENV=test mix test
 
 dialyzer: MIX_ENV=dev
 dialyzer:
